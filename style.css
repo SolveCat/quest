@@ -16,7 +16,8 @@ body {
   text-align: center;
   width: 90%;
   max-width: 400px;
-  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  position: relative;
 }
 
 h1 {
@@ -40,19 +41,31 @@ button:hover {
   background: #45a049;
 }
 
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 
 .fade {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateX(40px);
   transition: opacity 0.5s, transform 0.5s;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 70px;
 }
 
 .fade.show {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
+  position: relative;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-top: 10px;
 }
 
 .status-link {
