@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Stan krów dzisiaj</title>
+<style>
+  body { font-family: sans-serif; background:#1e1e1e; color:#fff; display:flex; flex-direction:column; align-items:center; padding:30px; }
+  h1 { margin-bottom:20px; }
+  .buttons { display:flex; gap:10px; margin-bottom:20px; }
+  button { padding:10px 20px; border:none; border-radius:5px; cursor:pointer; font-weight:bold; background:#8a2be2; color:#fff; transition:0.2s; }
+  button:hover { background:#9b4deb; }
+  .cows { display:flex; flex-wrap:wrap; gap:10px; max-width:600px; justify-content:center; }
+  .cow { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#000; cursor:default; }
+  .gray { background:#888; }
+  .green { background:#4CAF50; }
+  .yellow { background:#FFC107; }
+  .red { background:#F44336; }
+</style>
+</head>
+<body>
+<h1>Stan krów dzisiaj</h1>
+
+<div class="buttons">
+  <button onclick="window.location.href='https://solvecat.github.io/quest/'">Otwórz formularz</button>
+  <button id="refreshBtn">Odśwież</button>
+</div>
+
+<div class="cows" id="cows"></div>
+
+<script>
+function fetchData(){
+    const existingScript = document.getElementById('dataScript');
+    if(existingScript) existingScript.remove();
+
+    const script = document.createElement('script');
+    script.id = 'dataScript';
+    script.src = 'https://script.google.com/macros/s/AKfycbw7EOJi6-Gr34VP9q-cxOvNtrbLZG78U0Qcdzjexio5IdK8tce6Q8mbPwFABLGHSolBnA/exec?callback=callback';
+    document.body.appendChild(script);
+}
+
+function callback(data) {
+    const cowsContainer = document.getElementById('cows');
+    cowsContainer.innerHTML = '';
+
+    // Najnowsze dane dla każdej krowy
+    const latestData = {};
+
+    data.slice(1).forEach(row => {
+        const cowNo = row[2]; 
+        const date = new Date(row[0]);
+        if(cowNo >= 1 && cowNo <= 40){
+            if(!latestData[cowNo] || new Date(latestData[cowNo][0]) < date){
+                latestData[cowNo] = row;
+            }
+        }
+    });
+
+    // Wyświetl krowy
+    for(let i=1; i<=40; i++){
+        const div = document.createElement('div');
+        div.className = 'cow gray';
+        div.textContent = i;
+
+        if(latestData[i]){
+            const row = latestData[i];
+            const missing = row[3]; 
+            const laptop = row[5];
+            const scanner = row[6];
+            const battery = row[7];
+
+            if(missing === 'tak') div.className = 'cow yellow';
+            else if(laptop === 'nie' || scanner === 'nie' || battery === 'nie') div.className = 'cow red';
+            else div.className = 'cow green';
+        }
+
+        cowsContainer.appendChild(div);
+    }
+}
+
+// Przycisk odświeżania
+document.getElementById('refreshBtn').addEventListener('click', fetchData);
+
+// Pierwsze pobranie danych
+fetchData();
+</script>
+</body>
+</html>
