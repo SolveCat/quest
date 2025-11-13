@@ -44,15 +44,18 @@ function finishForm() {
   nextBtn.classList.add("hidden");
 
   const xhr = new XMLHttpRequest();
-  xhr.open("POST", "https://script.google.com/macros/s/AKfycbyW_gVscnVLd4MnXaXAoXWTi0Jmg7eqdMd8AqUyWUZBByxMVc1yU9bsLizede98VFgyCw/exec");
+  xhr.open("POST", "https://script.google.com/macros/s/AKfycbyW_gVscnVLd4MnXaXAoXWTi0Jmg7eqdMd8AqUyWUZBByxMVc1yU9bsLizede98VFgyCw/exec", true);
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-  xhr.onreadystatechange = function() {
-      if(xhr.readyState === 4){
-          container.innerHTML = "<p>✅ Zapisano pomyślnie!</p>";
-          statusLink.classList.remove("hidden");
-      }
-  }
+  xhr.onload = () => {
+      container.innerHTML = "<p>✅ Zapisano pomyślnie!</p>";
+      statusLink.classList.remove("hidden");
+  };
+
+  xhr.onerror = () => {
+      container.innerHTML = "<p>❌ Błąd zapisu. Spróbuj ponownie.</p>";
+      nextBtn.classList.remove("hidden");
+  };
 
   xhr.send(JSON.stringify(answers));
 }
