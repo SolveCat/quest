@@ -1,4 +1,4 @@
-fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?action=status")
+fetch("https://script.google.com/macros/s/AKfycbyW_gVscnVLd4MnXaXAoXWTi0Jmg7eqdMd8AqUyWUZBByxMVc1yU9bsLizede98VFgyCw/exec?action=status")
   .then(res => res.json())
   .then(data => {
     const div = document.getElementById("krowy");
