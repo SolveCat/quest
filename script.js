@@ -43,7 +43,7 @@ function finishForm() {
   container.innerHTML = "<p>Zapisywanie...</p>";
   nextBtn.classList.add("hidden");
 
-  fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbyW_gVscnVLd4MnXaXAoXWTi0Jmg7eqdMd8AqUyWUZBByxMVc1yU9bsLizede98VFgyCw/exec", {
     method: "POST",
     body: JSON.stringify(answers)
   })
