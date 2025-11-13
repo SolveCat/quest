@@ -8,39 +8,7 @@
 <body>
   <div class="container">
     <h1>Kontrola Stanu</h1>
-
-    <div class="form">
-      <label>Zeskanuj badge lub wpisz login:</label>
-      <input id="login" placeholder="np. krowa12">
-
-      <label>Czy laptop działa?</label>
-      <select id="laptop">
-        <option value="">Wybierz</option>
-        <option value="tak">Tak</option>
-        <option value="nie">Nie</option>
-      </select>
-
-      <label>Czy skaner działa?</label>
-      <select id="skaner">
-        <option value="">Wybierz</option>
-        <option value="tak">Tak</option>
-        <option value="nie">Nie</option>
-      </select>
-
-      <label>Czy drukarka działa?</label>
-      <select id="drukarka">
-        <option value="">Wybierz</option>
-        <option value="tak">Tak</option>
-        <option value="nie">Nie</option>
-      </select>
-
-      <label>Czy czegoś brakuje?</label>
-      <input id="braki" placeholder="np. papier, kabel...">
-
-      <button onclick="zapisz()">Zapisz</button>
-      <button onclick="window.location='status.html'">STATUS</button>
-    </div>
-
+    <div id="formContainer" class="form"></div>
     <div id="msg"></div>
   </div>
 
