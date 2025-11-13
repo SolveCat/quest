@@ -17,7 +17,7 @@ body { font-family: 'Inter', sans-serif; text-align:center; background:#f5f5f5; 
 <script>
 const cows = Array.from({length:50},(_,i)=>i+1);
 async function loadStatus(){
-  const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec");
+  const res = await fetch("https://script.google.com/macros/s/AKfycbyW_gVscnVLd4MnXaXAoXWTi0Jmg7eqdMd8AqUyWUZBByxMVc1yU9bsLizede98VFgyCw/exec");
   const data = await res.json();
   const now = new Date().getTime();
   const container = document.getElementById('cow-container');
