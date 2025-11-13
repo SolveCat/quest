@@ -17,16 +17,16 @@ function showQuestion() {
   setTimeout(() => {
     const q = questions[current];
     let html = `<p>${q.label}</p>`;
-    if(q.type === "text") html += `<input id="${q.id}" type="text">`;
+    if(q.type === "text") html += `<input id="${q.id}" type="text" placeholder="Wpisz tutaj...">`;
     if(q.type === "select"){
-      html += `<select id="${q.id}"><option value="">Wybierz</option>`;
-      q.options.forEach(o=>html+=`<option value="${o}">${o}</option>`);
+      html += `<select id="${q.id}"><option value="">-- Wybierz --</option>`;
+      q.options.forEach(o=> html+=`<option value="${o}">${o}</option>`);
       html += `</select>`;
     }
     container.innerHTML = html;
     container.classList.add("fade","show");
     nextBtn.classList.remove("hidden");
-  }, 300);
+  }, 200);
 }
 
 nextBtn.addEventListener("click", () => {
@@ -43,16 +43,18 @@ function finishForm() {
   container.innerHTML = "<p>Zapisywanie...</p>";
   nextBtn.classList.add("hidden");
 
-  fetch("https://script.google.com/macros/s/AKfycbyW_gVscnVLd4MnXaXAoXWTi0Jmg7eqdMd8AqUyWUZBByxMVc1yU9bsLizede98VFgyCw/exec", {
-    method: "POST",
-    body: JSON.stringify(answers)
-  })
-  .then(()=> {
-    container.innerHTML = "<p>✅ Zapisano pomyślnie!</p>";
-    statusLink.classList.remove("hidden");
-  })
-  .catch(()=> container.innerHTML = "<p>❌ Błąd zapisu!</p>");
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "https://script.google.com/macros/s/AKfycbyW_gVscnVLd4MnXaXAoXWTi0Jmg7eqdMd8AqUyWUZBByxMVc1yU9bsLizede98VFgyCw/exec");
+  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+  xhr.onreadystatechange = function() {
+      if(xhr.readyState === 4){
+          container.innerHTML = "<p>✅ Zapisano pomyślnie!</p>";
+          statusLink.classList.remove("hidden");
+      }
+  }
+
+  xhr.send(JSON.stringify(answers));
 }
 
-// start
 document.addEventListener("DOMContentLoaded", showQuestion);
