@@ -344,10 +344,27 @@
                     </div>
                 </div>
             </div>
+<!-- Printer -->
+<div class="question-container" id="question6">
+    <div class="step-number">6</div>
+    <div class="form-group">
+        <label>Czy drukarka działa?</label>
+        <div class="radio-group">
+            <label class="radio-label">
+                <input type="radio" name="drukarka" value="tak">
+                <span>Tak</span>
+            </label>
+            <label class="radio-label">
+                <input type="radio" name="drukarka" value="nie">
+                <span>Nie</span>
+            </label>
+        </div>
+    </div>
+</div>
 
             <!-- Charger -->
-            <div class="question-container" id="question6">
-                <div class="step-number">6</div>
+            <div class="question-container" id="question7">
+                <div class="step-number">7</div>
                 <div class="form-group">
                     <label>Czy ładowarka działa?</label>
                     <div class="radio-group">
@@ -361,6 +378,7 @@
                         </label>
                     </div>
                 </div>
+                
             </div>
         </div>
 
@@ -379,7 +397,7 @@
 
     <script>
         let currentStep = 1;
-        const totalSteps = 6;
+        const totalSteps = 7;
 
         // Obsługa radio buttons
         document.querySelectorAll('.radio-label').forEach(label => {
@@ -426,6 +444,8 @@
                 case 5:
                     return document.querySelector('input[name="skaner"]:checked');
                 case 6:
+                    return document.querySelector('input[name="drukarka"]:checked');
+                case 7:
                     return document.querySelector('input[name="ladowarka"]:checked');
                 default:
                     return true;
@@ -476,6 +496,7 @@
                     : 'N/D',
                 laptop: document.querySelector('input[name="laptop"]:checked').value,
                 skaner: document.querySelector('input[name="skaner"]:checked').value,
+                drukarka: document.querySelector('input[name="drukarka"]:checked').value,
                 ladowarka: document.querySelector('input[name="ladowarka"]:checked').value
             };
 
