@@ -28,13 +28,15 @@
 <div class="cows" id="cows"></div>
 
 <script>
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzQLAbsC1vQBH88eo2hWL4X8WL30my2wf7lO6ALo9lOKwyc-L8p6S_Le5Ooz1iqroKLFA/exec"; // tutaj wstaw URL do Apps Script /exec
+
 function fetchData(){
     const existingScript = document.getElementById('dataScript');
     if(existingScript) existingScript.remove();
 
     const script = document.createElement('script');
     script.id = 'dataScript';
-    script.src = 'https://script.google.com/macros/s/AKfycbz6sTeLi2jlgTRiMjXpTUAofOcR27ekBMtHC2RdK1BMEgHFq_5Ywy4TjRQ2a7I_iIoPAw/exec?callback=callback';
+    script.src = `${WEB_APP_URL}?callback=callback`;
     document.body.appendChild(script);
 }
 
@@ -42,9 +44,7 @@ function callback(data) {
     const cowsContainer = document.getElementById('cows');
     cowsContainer.innerHTML = '';
 
-    // Najnowsze dane dla każdej krowy
     const latestData = {};
-
     data.slice(1).forEach(row => {
         const cowNo = row[2]; 
         const date = new Date(row[0]);
@@ -55,7 +55,6 @@ function callback(data) {
         }
     });
 
-    // Wyświetl krowy
     for(let i=1; i<=40; i++){
         const div = document.createElement('div');
         div.className = 'cow gray';
@@ -77,10 +76,7 @@ function callback(data) {
     }
 }
 
-// Przycisk odświeżania
 document.getElementById('refreshBtn').addEventListener('click', fetchData);
-
-// Pierwsze pobranie danych
 fetchData();
 </script>
 </body>
